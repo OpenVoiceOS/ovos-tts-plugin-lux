@@ -1,0 +1,3 @@
+ovos-plugin-manager>=0.0.1
+zipvoice>=0.0.11
+soundfile

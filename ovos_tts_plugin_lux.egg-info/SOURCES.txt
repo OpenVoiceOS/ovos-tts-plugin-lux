@@ -1,0 +1,11 @@
+setup.py
+ovos_tts_plugin_lux/__init__.py
+ovos_tts_plugin_lux/version.py
+ovos_tts_plugin_lux.egg-info/PKG-INFO
+ovos_tts_plugin_lux.egg-info/SOURCES.txt
+ovos_tts_plugin_lux.egg-info/dependency_links.txt
+ovos_tts_plugin_lux.egg-info/entry_points.txt
+ovos_tts_plugin_lux.egg-info/requires.txt
+ovos_tts_plugin_lux.egg-info/top_level.txt
+ovos_tts_plugin_lux.egg-info/zip-safe
+test/test_plugin.py

@@ -1,0 +1,5 @@
+[mycroft.plugin.tts]
+ovos-tts-plugin-lux = ovos_tts_plugin_lux:LuxTTS
+
+[mycroft.plugin.tts.config]
+ovos-tts-plugin-lux.config = ovos_tts_plugin_lux:LuxTTSPluginConfig
