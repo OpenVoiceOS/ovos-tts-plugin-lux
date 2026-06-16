@@ -274,8 +274,8 @@ Generates speech using the encoded prompt.
 The plugin registers with OVOS using entry points in `setup.py`:
 
 ```python
-entry_points={'mycroft.plugin.tts': PLUGIN_ENTRY_POINT,
-              'mycroft.plugin.tts.config': SAMPLE_CONFIGS}
+entry_points={'opm.tts': PLUGIN_ENTRY_POINT,
+              'opm.tts.config': SAMPLE_CONFIGS}
 ```
 
 Where:

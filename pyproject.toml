@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "unknown"
+dynamic = ["version"]
+ description = "LuxTTS plugin for OpenVoiceOS"
+readme = "README.md"
+license = "Apache-2.0"
+authors = [{name = "OpenVoiceOS"}]requires-python = ">=3.10"
+keywords = ["ovos", "plugin"]
+[project.urls]
+Homepage = ""Repository = ""
+
+[project.entry-points."opm.tts"]
+ovos-tts-plugin-lux = "ovos-tts-plugin-lux = ovos_tts_plugin_lux:LuxTTS"[project.entry-points."opm.tts.config"]SAMPLE_CONFIGS = "SAMPLE_CONFIGS"
+
+[tool.setuptools]
+packages = ["unknown"]
+[tool.setuptools.package-dir]
+unknown = ""
+[tool.setuptools.dynamic]
+version = {attr = "unknown.version.__version__"}

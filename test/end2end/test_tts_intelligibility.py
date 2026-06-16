@@ -5,6 +5,7 @@ audio back with the ovoscope reference STT, and asserts the mean word error
 rate stays within tolerance.
 """
 import os
+import json
 
 from ovoscope.tts_intelligibility import score_tts_intelligibility
 
@@ -23,5 +24,5 @@ PHRASES = [
 def test_tts_intelligibility():
     tts = LuxTTS()
     report = score_tts_intelligibility(tts, PHRASES, lang=LANG)
-    print(f"::TTS-INTELLIGIBILITY:: {report.to_dict()}")
+    print("::TTS-INTELLIGIBILITY:: " + json.dumps(report.to_dict()))
     assert report.mean_wer <= float(os.environ.get("TTS_MAX_WER", "1.0"))
