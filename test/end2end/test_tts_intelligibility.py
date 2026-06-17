@@ -22,7 +22,17 @@ PHRASES = [
 
 
 def test_tts_intelligibility():
-    tts = LuxTTS()
+    # LuxTTS is a zero-shot voice-cloning engine: it needs a reference prompt
+    # audio to clone, and runs on CPU in CI. The reference WAV path is provided by
+    # the workflow via LUX_PROMPT_AUDIO (synthesised with espeak-ng).
+    config = {
+        "lang": LANG,
+        "device": os.environ.get("LUX_DEVICE", "cpu"),
+    }
+    prompt = os.environ.get("LUX_PROMPT_AUDIO")
+    if prompt:
+        config["prompt_audio"] = prompt
+    tts = LuxTTS(config)
     report = score_tts_intelligibility(tts, PHRASES, lang=LANG, mode="direct")
     print("::TTS-INTELLIGIBILITY:: " + json.dumps(report.to_dict()))
     assert report.mean_wer <= float(os.environ.get("TTS_MAX_WER", "1.0"))
