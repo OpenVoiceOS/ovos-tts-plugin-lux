@@ -1,0 +1,10 @@
+.git
+.github
+test
+!test/jfk.wav
+**/__pycache__
+*.py[cod]
+.pytest_cache
+*.egg-info
+.venv
+TODO.md

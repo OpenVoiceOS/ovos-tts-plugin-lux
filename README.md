@@ -62,6 +62,37 @@ The plugin requires a reference audio file for voice cloning:
 
 The plugin will use the reference audio file to clone the voice and generate speech. The reference audio should be at least 3 seconds long for best results.
 
+## Docker
+
+The plugin can be served behind [`ovos-tts-server`](https://github.com/OpenVoiceOS/ovos-tts-server),
+exposing an ElevenLabs-compatible HTTP API on port `9666`. A published image is
+built from CI to `ghcr.io/openvoiceos/ovos-tts-plugin-lux`.
+
+```bash
+docker compose up -d
+# or build locally:
+docker build -t ovos-tts-plugin-lux .
+docker run --rm -p 9666:9666 -v lux-cache:/home/ovos/.cache ovos-tts-plugin-lux
+```
+
+Synthesize:
+
+```bash
+curl -G 'http://localhost:9666/synthesize/hello%20world' --output hello.wav
+```
+
+Notes:
+
+- **Heavy image.** LuxTTS pulls torch/torchaudio (CPU wheels) plus the LuxTTS
+  fork's LinaCodec/piper-phonemize prerequisites, so the build is large.
+- **First-run model download.** The ~491 MB `YatharthS/LuxTTS` model downloads on
+  first synthesis into `~/.cache`; mount a named volume (as the compose file does)
+  so it is fetched only once. Give the container a generous startup window.
+- **Zero-shot voice cloning.** LuxTTS clones the voice in a reference prompt. The
+  image ships with `test/jfk.wav` as the default `prompt_audio` so it works out of
+  the box; mount your own `mycroft.conf` (and prompt file) to clone a different
+  voice. The engine runs on CPU in the container (`device: cpu`).
+
 ## Supported Languages
 
 - `en-US` - English (United States)

@@ -1,0 +1,28 @@
+services:
+  lux-tts:
+    image: ghcr.io/openvoiceos/ovos-tts-plugin-lux:latest
+    # …or build from this checkout instead of pulling the published image:
+    # build: .
+    container_name: lux-tts
+    restart: unless-stopped
+    ports:
+      - "9666:9666"
+    volumes:
+      # the ~491 MB LuxTTS model download + synth cache persist here (a named volume
+      # so the model is fetched only once)
+      - lux-cache:/home/ovos/.cache
+      # optional: mount your own mycroft.conf to supply a different reference prompt
+      # (LuxTTS clones the voice in prompt_audio), e.g.
+      #   {"tts": {"ovos-tts-plugin-lux": {"device": "cpu",
+      #            "prompt_audio": "/prompts/my_voice.wav"}}}
+      # - ./mycroft.conf:/home/ovos/.config/mycroft/mycroft.conf:ro
+      # - ./prompts:/prompts:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:9666/status')"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 180s
+
+volumes:
+  lux-cache:
