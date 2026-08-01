@@ -1,14 +1,15 @@
 # ovos-tts-plugin-lux
 
-LuxTTS plugin for OpenVoiceOS voice assistant platform.
+A LuxTTS plugin for the OpenVoiceOS voice assistant platform.
 
 ## Overview
 
-This plugin integrates LuxTTS, a lightweight zipvoice-based text-to-speech model designed for high-quality voice cloning and realistic generation at speeds exceeding 150x realtime.
+This plugin integrates LuxTTS, a ZipVoice-based text-to-speech model that
+clones a voice and generates speech at more than 150x realtime on a GPU.
 
 ## Features
 
-- Voice cloning with SOTA quality
+- Voice cloning
 - 48kHz speech generation
 - High-speed inference (150x realtime on GPU, faster than realtime on CPU)
 - Low VRAM requirements (<1GB)
@@ -21,7 +22,7 @@ pip install ovos-tts-plugin-lux
 
 ## Configuration
 
-The plugin requires a reference audio file for voice cloning:
+The plugin needs a reference audio file for voice cloning:
 
 ```yaml
 # mycroft.conf or configuration
@@ -45,7 +46,8 @@ The plugin requires a reference audio file for voice cloning:
 
 ## Usage
 
-The plugin will use the reference audio file to clone the voice and generate speech. The reference audio should be at least 3 seconds long for best results.
+The plugin uses the reference audio file to clone the voice and generate
+speech. Use a reference clip of at least 3 seconds for the best results.
 
 ## Supported Languages
 
@@ -54,8 +56,8 @@ The plugin will use the reference audio file to clone the voice and generate spe
 ## Requirements
 
 - A reference audio file (WAV or MP3 format)
-- At least 3 seconds of reference audio for optimal voice cloning
-- GPU recommended for best performance (CUDA or MPS for Mac)
+- At least 3 seconds of reference audio for the best voice cloning
+- A GPU (CUDA or MPS) for the best performance
 
 ## Technical Details
 
@@ -63,7 +65,7 @@ The plugin will use the reference audio file to clone the voice and generate spe
 
 #### `LuxTTS`
 
-Main TTS plugin class implementing the OVOS TTS interface.
+The main TTS plugin class. It implements the OVOS TTS interface.
 
 **Inherits from:** `ovos_plugin_manager.templates.tts.TTS`
 
@@ -88,7 +90,7 @@ Main TTS plugin class implementing the OVOS TTS interface.
 
 #### `LuxTTSValidator`
 
-Validator for LuxTTS plugin.
+The validator for the LuxTTS plugin.
 
 **Inherits from:** `ovos_plugin_manager.templates.tts.TTSValidator`
 
@@ -115,10 +117,10 @@ Validator for LuxTTS plugin.
 
 ## Tips
 
-- Use at minimum a 3 second audio file for voice cloning
-- Use `return_smooth = True` if you hear metallic sounds
-- Lower `t_shift` for less possible pronunciation errors but worse quality
-- Setting `ref_duration` lower can speed up inference
+- Use at least a 3 second audio file for voice cloning.
+- Set `return_smooth = True` if you hear metallic sounds.
+- Lower `t_shift` for fewer pronunciation errors, at the cost of quality.
+- Lower `ref_duration` to speed up inference.
 
 ## See Also
 
