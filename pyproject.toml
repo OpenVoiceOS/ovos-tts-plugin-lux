@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ovos-tts-plugin-lux"
+dynamic = ["version"]
+description = "LuxTTS plugin for OpenVoiceOS"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+authors = [{name = "OpenVoiceOS", email = "jarbasai@mailfence.com"}]
+requires-python = ">=3.10"
+keywords = ["ovos", "plugin", "tts"]
+dependencies = [
+    "ovos-plugin-manager>=2.1.0,<3.0.0",
+    # The `zipvoice.luxvoice` module (the LuxTTS implementation) lives in the
+    # ysharma3501/LuxTTS distribution (package name "Zipvoice"), NOT the unrelated
+    # empty `zipvoice` package on PyPI. That fork declares its own git/find-links
+    # sources (LinaCodec, piper-phonemize) which plain pip cannot resolve from
+    # [tool.uv.sources]; the CI installs those prerequisites explicitly before this
+    # package. Listed without --no-deps here so a plain install still pulls torch.
+    "zipvoice @ git+https://github.com/ysharma3501/LuxTTS.git",
+    "soundfile",
+]
+
+[project.optional-dependencies]
+test = [
+    "ovoscope[tts]>=0.13.1,<1.0.0",
+    "pytest>=7.0.0,<9",
+    "pytest-timeout>=2.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/OpenVoiceOS/ovos-tts-plugin-lux"
+Repository = "https://github.com/OpenVoiceOS/ovos-tts-plugin-lux"
+
+[project.entry-points."opm.tts"]
+ovos-tts-plugin-lux = "ovos_tts_plugin_lux:LuxTTS"
+
+[project.entry-points."opm.tts.config"]
+"ovos-tts-plugin-lux.config" = "ovos_tts_plugin_lux:LuxTTSPluginConfig"
+
+[tool.setuptools]
+packages = ["ovos_tts_plugin_lux"]
+
+[tool.setuptools.dynamic]
+version = {attr = "ovos_tts_plugin_lux.version.__version__"}

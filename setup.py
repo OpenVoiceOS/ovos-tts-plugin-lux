@@ -47,6 +47,7 @@ setup(
         'zipvoice>=0.0.11',
         'soundfile',
     ],
+    extras_require={'test': ['ovoscope[tts]', 'pytest']},
     zip_safe=True,
     include_package_data=True,
     classifiers=[
